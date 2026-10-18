@@ -1,0 +1,565 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="M-Frame Studios — Every Frame Tells a Story. Independent film production.">
+  <title>M-Frame Studios | Film Production</title>
+
+  <style>
+    :root {
+      --red: #e50914;
+      --black: #080808;
+      --panel: #151515;
+      --white: #ffffff;
+      --grey: #b8b8b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(8, 8, 8, 0.96);
+      border-bottom: 1px solid #292929;
+      padding: 16px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--red);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      font-size: 14px;
+      color: #ddd;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--red);
+    }
+
+    .languages {
+      display: flex;
+      gap: 6px;
+    }
+
+    .languages button {
+      border: 1px solid #444;
+      background: transparent;
+      color: white;
+      padding: 7px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .languages button.active,
+    .languages button:hover {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    .hero {
+      min-height: 80vh;
+      padding: 100px 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      background:
+        radial-gradient(ellipse at 80% 40%, #3c080b 0%, transparent 45%),
+        linear-gradient(120deg, #080808 50%, #1c0809);
+    }
+
+    .eyebrow {
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 88px);
+      line-height: 1.05;
+      max-width: 900px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: var(--red);
+    }
+
+    .hero p {
+      color: var(--grey);
+      max-width: 620px;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .button {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      padding: 13px 24px;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .button:hover {
+      background: #b80710;
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 80px 8%;
+      scroll-margin-top: 80px;
+    }
+
+    .section-title {
+      font-size: clamp(30px, 5vw, 44px);
+      margin-bottom: 12px;
+    }
+
+    .section-title span {
+      color: var(--red);
+    }
+
+    .section-intro {
+      color: var(--grey);
+      margin-bottom: 36px;
+      max-width: 650px;
+    }
+
+    .projects {
+      background: #0e0e0e;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 22px;
+    }
+
+    .project-card {
+      background: var(--panel);
+      border: 1px solid #292929;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--red);
+    }
+
+    .project-art {
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle, #541014 0%, #21090b 48%, #101010 100%);
+      font-size: 48px;
+    }
+
+    .project-info {
+      padding: 22px;
+    }
+
+    .project-info h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .project-info p {
+      color: var(--grey);
+      font-size: 14px;
+    }
+
+    .status {
+      display: inline-block;
+      color: #ff7379;
+      border: 1px solid #74252a;
+      border-radius: 3px;
+      padding: 4px 8px;
+      margin-top: 16px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 35px;
+      align-items: start;
+    }
+
+    .about-text {
+      color: var(--grey);
+      margin-top: 16px;
+    }
+
+    .values {
+      display: grid;
+      gap: 16px;
+    }
+
+    .value {
+      padding: 18px;
+      background: var(--panel);
+      border-left: 3px solid var(--red);
+      border-radius: 4px;
+    }
+
+    .value h3 {
+      margin-bottom: 4px;
+    }
+
+    .value p {
+      color: var(--grey);
+      font-size: 14px;
+    }
+
+    .contact {
+      text-align: center;
+      background: linear-gradient(135deg, #18090a, #090909 70%);
+    }
+
+    .contact p {
+      color: var(--grey);
+      max-width: 580px;
+      margin: 12px auto 26px;
+    }
+
+    footer {
+      border-top: 1px solid #292929;
+      padding: 25px 8%;
+      color: #888;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        justify-content: center;
+      }
+
+      nav {
+        justify-content: center;
+        gap: 13px;
+      }
+
+      .hero {
+        min-height: 70vh;
+        padding: 75px 7%;
+      }
+
+      section {
+        padding: 60px 7%;
+      }
+
+      footer {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="#home" class="logo">M-<span>FRAME</span> STUDIOS</a>
+
+    <nav>
+      <a href="#home" data-i18n="navHome">Domů</a>
+      <a href="#projects" data-i18n="navProjects">Naše projekty</a>
+      <a href="#about" data-i18n="navAbout">O nás</a>
+      <a href="#contact" data-i18n="navContact">Kontakt</a>
+
+      <div class="languages">
+        <button id="czButton" class="active" type="button"
+          onclick="setLanguage('cs')">CZ</button>
+        <button id="enButton" type="button"
+          onclick="setLanguage('en')">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="eyebrow" data-i18n="eyebrow">Independent Film Production</div>
+
+      <h1>
+        <span>M-FRAME</span><br>
+        <span data-i18n="heroTitle">KAŽDÝ ZÁBĚR VYPRÁVÍ PŘÍBĚH.</span>
+      </h1>
+
+      <p data-i18n="heroText">
+        Tvoříme filmy, zachycujeme emoce a přinášíme příběhy na obrazovky.
+        Vítej ve světě M-Frame Studios.
+      </p>
+
+      <a class="button" href="#projects" data-i18n="heroButton">
+        Prozkoumat projekty
+      </a>
+    </section>
+
+    <section class="projects" id="projects">
+      <h2 class="section-title" data-i18n="projectsTitle">
+        NAŠE <span>PROJEKTY</span>
+      </h2>
+
+      <p class="section-intro" data-i18n="projectsIntro">
+        Každý film začíná nápadem. Tady najdeš naše filmové projekty
+        a příběhy, na kterých pracujeme.
+      </p>
+
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="project-art">🎬</div>
+          <div class="project-info">
+            <h3>Síla Čtyř</h3>
+            <p data-i18n="filmDescription">
+              Příběh přátelství, odvahy a síly, která vzniká, když držíme spolu.
+            </p>
+            <span class="status" data-i18n="filmStatus">
+              Filmový projekt
+            </span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-art">🎥</div>
+          <div class="project-info">
+            <h3 data-i18n="projectTwo">Další příběh</h3>
+            <p data-i18n="projectTwoText">
+              Nové nápady, nové záběry a další filmová dobrodružství.
+            </p>
+            <span class="status" data-i18n="comingSoon">Již brzy</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-art">🚁</div>
+          <div class="project-info">
+            <h3 data-i18n="projectThree">Letecké záběry</h3>
+            <p data-i18n="projectThreeText">
+              Pohled na svět z jiné perspektivy a filmové záběry z výšky.
+            </p>
+            <span class="status" data-i18n="comingSoon">Již brzy</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="about-grid">
+        <div>
+          <div class="eyebrow" data-i18n="aboutEyebrow">Our Vision</div>
+          <h2 class="section-title" data-i18n="aboutTitle">
+            VÍC NEŽ JEN <span>OBRAZ.</span>
+          </h2>
+          <p class="about-text" data-i18n="aboutText">
+            M-Frame Studios je nezávislá filmová značka zaměřená na
+            kreativní tvorbu, filmové příběhy a nezapomenutelné okamžiky.
+            Věříme, že každý záběr může vyvolat emoce a zanechat dojem.
+          </p>
+        </div>
+
+        <div class="values">
+          <div class="value">
+            <h3 data-i18n="valueOneTitle">🎞️ Kreativita</h3>
+            <p data-i18n="valueOneText">
+              Originální nápady a vlastní filmový styl.
+            </p>
+          </div>
+
+          <div class="value">
+            <h3 data-i18n="valueTwoTitle">🎯 Vášeň</h3>
+            <p data-i18n="valueTwoText">
+              Každému projektu věnujeme energii a pozornost.
+            </p>
+          </div>
+
+          <div class="value">
+            <h3 data-i18n="valueThreeTitle">🚀 Ambice</h3>
+            <p data-i18n="valueThreeText">
+              Neustále se učíme a posouváme naši tvorbu dál.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="eyebrow" data-i18n="contactEyebrow">Let's Create</div>
+      <h2 class="section-title" data-i18n="contactTitle">
+        TVŮJ PŘÍBĚH. <span>NÁŠ DALŠÍ FILM.</span>
+      </h2>
+      <p data-i18n="contactText">
+        Máš nápad na spolupráci nebo nový projekt?
+        Ozvi se nám — kontaktní údaje zde brzy doplníme.
+      </p>
+      <span class="status" data-i18n="contactStatus">
+        Kontakt již brzy
+      </span>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> M-Frame Studios</div>
+    <div data-i18n="footerSlogan">Every Frame Tells a Story.</div>
+  </footer>
+
+  <script>
+    const translations = {
+      cs: {
+        navHome: "Domů",
+        navProjects: "Naše projekty",
+        navAbout: "O nás",
+        navContact: "Kontakt",
+        eyebrow: "Nezávislá filmová produkce",
+        heroTitle: "KAŽDÝ ZÁBĚR VYPRÁVÍ PŘÍBĚH.",
+        heroText: "Tvoříme filmy, zachycujeme emoce a přinášíme příběhy na obrazovky. Vítej ve světě M-Frame Studios.",
+        heroButton: "Prozkoumat projekty",
+        projectsTitle: 'NAŠE <span>PROJEKTY</span>',
+        projectsIntro: "Každý film začíná nápadem. Tady najdeš naše filmové projekty a příběhy, na kterých pracujeme.",
+        filmDescription: "Příběh přátelství, odvahy a síly, která vzniká, když držíme spolu.",
+        filmStatus: "Filmový projekt",
+        projectTwo: "Další příběh",
+        projectTwoText: "Nové nápady, nové záběry a další filmová dobrodružství.",
+        projectThree: "Letecké záběry",
+        projectThreeText: "Pohled na svět z jiné perspektivy a filmové záběry z výšky.",
+        comingSoon: "Již brzy",
+        aboutEyebrow: "Naše vize",
+        aboutTitle: 'VÍC NEŽ JEN <span>OBRAZ.</span>',
+        aboutText: "M-Frame Studios je nezávislá filmová značka zaměřená na kreativní tvorbu, filmové příběhy a nezapomenutelné okamžiky. Věříme, že každý záběr může vyvolat emoce a zanechat dojem.",
+        valueOneTitle: "🎞️ Kreativita",
+        valueOneText: "Originální nápady a vlastní filmový styl.",
+        valueTwoTitle: "🎯 Vášeň",
+        valueTwoText: "Každému projektu věnujeme energii a pozornost.",
+        valueThreeTitle: "🚀 Ambice",
+        valueThreeText: "Neustále se učíme a posouváme naši tvorbu dál.",
+        contactEyebrow: "Pojďme tvořit",
+        contactTitle: 'TVŮJ PŘÍBĚH. <span>NÁŠ DALŠÍ FILM.</span>',
+        contactText: "Máš nápad na spolupráci nebo nový projekt? Ozvi se nám — kontaktní údaje zde brzy doplníme.",
+        contactStatus: "Kontakt již brzy",
+        footerSlogan: "Every Frame Tells a Story."
+      },
+
+      en: {
+        navHome: "Home",
+        navProjects: "Our Projects",
+        navAbout: "About Us",
+        navContact: "Contact",
+        eyebrow: "Independent Film Production",
+        heroTitle: "EVERY FRAME TELLS A STORY.",
+        heroText: "We create films, capture emotions, and bring stories to screens. Welcome to the world of M-Frame Studios.",
+        heroButton: "Explore Projects",
+        projectsTitle: 'OUR <span>PROJECTS</span>',
+        projectsIntro: "Every film begins with an idea. Discover our film projects and the stories we're working on.",
+        filmDescription: "A story of friendship, courage, and the strength we find when we stand together.",
+        filmStatus: "Film Project",
+        projectTwo: "The Next Story",
+        projectTwoText: "New ideas, new shots, and more cinematic adventures.",
+        projectThree: "Aerial Footage",
+        projectThreeText: "A different perspective on the world through cinematic aerial shots.",
+        comingSoon: "Coming Soon",
+        aboutEyebrow: "Our Vision",
+        aboutTitle: 'MORE THAN JUST AN <span>IMAGE.</span>',
+        aboutText: "M-Frame Studios is an independent film brand focused on creative filmmaking, cinematic stories, and unforgettable moments. We believe every frame can create emotion and leave an impression.",
+        valueOneTitle: "🎞️ Creativity",
+        valueOneText: "Original ideas and our own cinematic style.",
+        valueTwoTitle: "🎯 Passion",
+        valueTwoText: "We bring energy and attention to every project.",
+        valueThreeTitle: "🚀 Ambition",
+        valueThreeText: "We keep learning and pushing our work forward.",
+        contactEyebrow: "Let's Create",
+        contactTitle: 'YOUR STORY. <span>OUR NEXT FILM.</span>',
+        contactText: "Have an idea for a collaboration or a new project? Get in touch — our contact details will be added here soon.",
+        contactStatus: "Contact Coming Soon",
+        footerSlogan: "Every Frame Tells a Story."
+      }
+    };
+
+    function setLanguage(lang) {
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.dataset.i18n;
+        if (translations[lang][key] !== undefined) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      document.getElementById("czButton").classList.toggle("active", lang === "cs");
+      document.getElementById("enButton").classList.toggle("active", lang === "en");
+
+      try {
+        localStorage.setItem("mframe-language", lang);
+      } catch (error) {
+        // The site still works if browser storage is unavailable.
+      }
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    let savedLanguage = "cs";
+    try {
+      savedLanguage = localStorage.getItem("mframe-language") || "cs";
+    } catch (error) {
+      savedLanguage = "cs";
+    }
+
+    setLanguage(savedLanguage);
+  </script>
+</body>
+</html>
