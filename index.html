@@ -473,6 +473,28 @@
     animation-delay: 1s;
   }
 }
+ #intro-sound-button {
+  margin-top: 24px;
+  padding: 12px 20px;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #e50914;
+  border-radius: 4px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+#intro-sound-button:hover {
+  background: #e50914;
+  box-shadow: 0 0 20px #e50914;
+}
+
+#intro-sound-button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
   </style>
 </head>
 
@@ -483,6 +505,9 @@
     <div class="intro-line"></div>
     <h1>M-FRAME <span>STUDIOS</span></h1>
     <p>EVERY FRAME TELLS A STORY</p>
+    <button id="intro-sound-button" type="button">
+  🔊 PLAY CINEMATIC SOUND
+</button>
     <div class="intro-line"></div>
   </div>
 </div>
@@ -777,6 +802,42 @@ emailLabel: "Email",
   } else {
     sessionStorage.setItem("mframeIntroShown", "true");
   }
+</script>
+<script>
+  const soundButton = document.getElementById("intro-sound-button");
+
+  soundButton.addEventListener("click", () => {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    audioContext.resume().then(() => {
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(100, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(
+        35,
+        audioContext.currentTime + 0.8
+      );
+
+      gain.gain.setValueAtTime(0.7, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        audioContext.currentTime + 0.9
+      );
+
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + 0.9);
+
+      soundButton.textContent = "✓ CINEMATIC SOUND PLAYED";
+      soundButton.disabled = true;
+
+      oscillator.onended = () => audioContext.close();
+    });
+  });
 </script>
 </body>
 </html>
