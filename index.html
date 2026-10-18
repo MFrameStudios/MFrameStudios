@@ -378,11 +378,114 @@
     width: 100%;
   }
 }
+/* M-FRAME STUDIOS CINEMATIC INTRO */
+#cinematic-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #050505;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: introExit 1s ease 4s forwards;
+}
 
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 20px;
+  animation: logoReveal 2s ease-out 0.4s both;
+}
+
+.intro-content h1 {
+  color: #fff;
+  font-size: clamp(30px, 7vw, 76px);
+  font-weight: 900;
+  letter-spacing: 5px;
+  margin: 22px 0 14px;
+}
+
+.intro-content h1 span {
+  color: #e50914;
+}
+
+.intro-content p {
+  color: #bbb;
+  font-size: 11px;
+  letter-spacing: 5px;
+}
+
+.intro-line {
+  height: 2px;
+  width: 0;
+  margin: 0 auto;
+  background: #e50914;
+  box-shadow: 0 0 18px #e50914;
+  animation: lineExpand 1s ease 0.8s forwards;
+}
+
+.intro-glow {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  background: #e50914;
+  opacity: 0;
+  filter: blur(100px);
+  border-radius: 50%;
+  animation: glowReveal 2s ease 0.5s forwards;
+}
+
+@keyframes logoReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes lineExpand {
+  to { width: min(420px, 75vw); }
+}
+
+@keyframes glowReveal {
+  50% { opacity: 0.35; }
+  100% { opacity: 0.12; }
+}
+
+@keyframes introExit {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #cinematic-intro {
+    animation-duration: 0.5s;
+    animation-delay: 1s;
+  }
+}
   </style>
 </head>
 
 <body>
+ <div id="cinematic-intro">
+  <div class="intro-glow"></div>
+  <div class="intro-content">
+    <div class="intro-line"></div>
+    <h1>M-FRAME <span>STUDIOS</span></h1>
+    <p>EVERY FRAME TELLS A STORY</p>
+    <div class="intro-line"></div>
+  </div>
+</div>
   <header>
     <a href="#home" class="logo">M-<span>FRAME</span> STUDIOS</a>
 
@@ -666,5 +769,14 @@ emailLabel: "Email",
 
     setLanguage(savedLanguage);
   </script>
+<script>
+  const intro = document.getElementById("cinematic-intro");
+
+  if (sessionStorage.getItem("mframeIntroShown")) {
+    intro.remove();
+  } else {
+    sessionStorage.setItem("mframeIntroShown", "true");
+  }
+</script>
 </body>
 </html>
